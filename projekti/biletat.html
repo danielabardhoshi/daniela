@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stored Information</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+    
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #36a832;
+            color: white;
+        }
+    
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Stored Information</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Ticket Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="infoTableBody"></tbody>
+    </table>
+
+    <script>
+        // Retrieve and display stored information
+        function displayStoredInformation() {
+            const infoTableBody = document.getElementById('infoTableBody');
+
+            // Retrieve information from local storage
+            const fullName = localStorage.getItem('fullName');
+            const email = localStorage.getItem('email');
+            const ticketAmount = localStorage.getItem('ticketAmount');
+
+            // Display information in the table
+            if (fullName && email && ticketAmount) {
+                const newRow = infoTableBody.insertRow();
+                newRow.insertCell(0).textContent = fullName;
+                newRow.insertCell(1).textContent = email;
+                newRow.insertCell(2).textContent = ticketAmount;
+
+                // Add an edit and remove button to each row
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.addEventListener('click', () => editRow(newRow));
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => removeRow(newRow));
+
+                const actionCell = newRow.insertCell(3);
+                actionCell.appendChild(editButton);
+                actionCell.appendChild(removeButton);
+            }
+        }
+
+        // Edit a row in the table
+        function editRow(row) {
+            // Implement edit logic here
+            alert('Edit functionality to be implemented');
+        }
+
+        // Remove a row from the table
+        function removeRow(row) {
+            // Remove the row from the table
+            row.remove();
+
+            // Optionally, you can also remove the information from local storage
+            localStorage.removeItem('fullName');
+            localStorage.removeItem('email');
+            localStorage.removeItem('ticketAmount');
+        }
+
+        // Call the function to display stored information when the page loads
+        window.onload = displayStoredInformation;
+    </script>
+</body>
+</html>
